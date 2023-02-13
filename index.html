@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet.css" href="style.css" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD"
+      crossorigin="anonymous"
+    />
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+      crossorigin="anonymous"
+    ></script>
+    <title>Document</title>
+    <style>
+      body {
+        background: rgb(202, 196, 207);
+      }
+      .container {
+        display: flex;
+
+        justify-content: center;
+      }
+      .form_item {
+        margin-top: 150px;
+        border: solid 2px black;
+        height: 250px;
+        width: 250px;
+      }
+      button {
+        margin-top: 20px;
+        padding: 5px 10px;
+      }
+
+      input {
+        padding: 8px;
+        border-radius: 2px;
+        border: none;
+        width: 500px;
+      }
+      .container_1 {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 100px;
+      }
+      .category {
+        margin-top: 20px;
+      }
+      .form-select {
+        width: 500px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container_1">
+      <form onsubmit="saveToLocalStorage(event)">
+        <div>
+          <div>
+            <label>choose expense Amount:</label> <br />
+            <input type="text" name="amount" required />
+          </div>
+        </div>
+        <div>
+          <div class="error-message_1">
+            <label>choose description:</label> <br />
+            <input type="text" name="description" required /> <br />
+          </div>
+        </div>
+        <div>
+          <div class="category">
+            <select name="select" class="form-select" id="autoSizingSelect" required>
+              <option  name="select" >Choose category...</option>
+              <option  name="select" >maruti</option>
+              <option  name="select" >mahindra</option>
+              <option  name="select" >Tata</option>
+            </select>
+          </div>
+        </div>
+
+        <button id="submitBtn">Add expense</button>
+      </form>
+      
+    </div>
+    <ul id="list_items"></ul>
+   
+
+
+    <script>
+       function saveToLocalStorage(event) {
+        event.preventDefault();
+        const amount = event.target.amount.value;
+        const description = event.target.description.value;
+        const select = event.target.select.value;
+        localStorage.setItem('amount', amount)
+        localStorage.setItem('description',description)
+        localStorage.setItem('select', select)
+        const abj = {
+          amount,
+          description,
+          select
+        }
+        localStorage.setItem('obj.description', JSON.stringify(obj));
+        showExpenseOnScreen(obj)
+       }
+      
+       function showExpenseOnScreen(obj) {
+        const parentElem = document.getElementById('list_items');
+        const childElem = document.createElement('li')
+        chilItem.textContent = obj.amount + "-" +  obj.description + "-" + obj.select
+     
+      const deleteButton = document.getElementById('input');
+      deleteButton.type = "button"
+      deleteButton.value = 'Delete'
+      deleteButton.onClick = () => {
+        localStorage.removeItem(obj.description);
+        parentElem.removeChild(childElem)
+
+      }
+      childElem.appendChild(deleteButton);
+      parentElem.appendChild(childElem)
+
+
+     const editButton = document.createElement('input');
+     editButton.type = 'button'
+     editButton.value = 'Edit'
+
+     editButton.onClick = () => {
+      localStorage.removeItem(obj.description);
+      parentElem.removeChild(childElem);
+      document.getElementById('amountInputTag').value = obj.name;
+      document.getElementById('descriptionInputTag').value = obj.description
+      document.getElementById('selectInputTag').value = obj.description
+     }
+
+      childElem.appendChild(deleteButton);
+      childElem.appendChild(editButton);
+      parentElem.appendChild(childElem)
+
+       }
+
+
+
+
+    </script>
+  </body>
+</html>
